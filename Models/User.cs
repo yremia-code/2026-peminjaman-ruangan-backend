@@ -16,4 +16,6 @@ public class User
     [MinLength(6, ErrorMessage = "Password minimal 6 karakter.")]
     public string Password { get; set; } = string.Empty;
     public string Role { get; set; } = "Mahasiswa"; 
+
+    public bool IsDeleted { get; set; } = false;
 }
