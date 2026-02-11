@@ -41,6 +41,14 @@ public class RuanganController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Ruangan>> PostRuangan(Ruangan ruangan)
     {
+        var isConflict = await _context.Ruangans
+            .AnyAsync(r => r.Nama.ToLower() == ruangan.Nama.ToLower() && !ruangan.IsDeleted);
+
+        if (isConflict)
+        {
+            return Conflict(new {message = "Ruangan dengan nama tersebut sudah ada!"});
+        }
+
         _context.Ruangans.Add(ruangan);
         await _context.SaveChangesAsync();
 
