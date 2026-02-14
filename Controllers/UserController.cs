@@ -33,12 +33,30 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<User>> PostUser(User user)
     {
+        var existingUser = await _context.Users
+            .IgnoreQueryFilters()
+            .FirstOrDefaultAsync(u => u.Email == user.Email);
         var emailExists = await _context.Users.AnyAsync(u => u.Email == user.Email);
-        if (emailExists)
+
+        if (existingUser != null)
         {
-            return BadRequest(new { message = "Email sudah terdaftar" });
+            if (!existingUser.IsDeleted)
+            {
+                return BadRequest(new { message = "Email sudah terdaftar" });
+            }
+
+            existingUser.Nama = user.Nama;
+            existingUser.Password = user.Password;
+            existingUser.Role = user.Role;
+            existingUser.IsDeleted = false;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "User berhasil dipulihkan dan diperbarui", user = existingUser });
         }
 
+        user.IsDeleted = false;
+        
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
