@@ -58,6 +58,7 @@ public class PeminjamanController : ControllerBase
             .AnyAsync(p =>
                 p.RuanganId == peminjaman.RuanganId &&
                 p.Status != "Rejected" &&
+                p.Status != "Canceled" &&
                 peminjaman.TanggalPinjam < p.TanggalSelesai &&
                 peminjaman.TanggalSelesai > p.TanggalPinjam);
         
@@ -86,6 +87,7 @@ public class PeminjamanController : ControllerBase
                 p.Id != id &&
                 p.RuanganId == peminjaman.RuanganId &&
                 p.Status != "Rejected" &&
+                p.Status != "Canceled" &&
                 peminjaman.TanggalPinjam < p.TanggalSelesai &&
                 peminjaman.TanggalSelesai > p.TanggalPinjam);
 
