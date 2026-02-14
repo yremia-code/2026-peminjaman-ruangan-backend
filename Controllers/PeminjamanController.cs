@@ -114,7 +114,7 @@ public class PeminjamanController : ControllerBase
         var peminjaman = await _context.Peminjamans.FindAsync(id);
         if (peminjaman == null) return NotFound();
 
-        var validStatus = new[] {"Pending", "Approved", "Rejected"};
+        var validStatus = new[] {"Pending", "Approved", "Rejected", "Canceled"};
         if (!validStatus.Contains(newStatus)) return BadRequest("Status tidak valid");
 
         peminjaman.Status = newStatus;
