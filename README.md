@@ -1,25 +1,25 @@
 # Sistem Peminjaman Ruangan PENS (Backend)
 
-RESTful API untuk sistem peminjaman ruangan, dibangun menggunakan **ASP.NET Core 8**.
+RESTful API untuk sistem peminjaman ruangan, dibangun menggunakan **ASP.NET 10**.
 
 ## Fitur Utama
-- **Authentication:** JWT Bearer Token.
+- **Authentication:** JWT Login (Admin & User)
 - **Authorization:** Role-based access (Admin & User).
 - **Smart Validation:** Mencegah peminjaman ganda di waktu yang sama.
 - **Soft Delete & Restore:** Keamanan data user agar tidak hilang permanen.
 
 ## Tech Stack
-- ASP.NET Core 8 Web API
-- Entity Framework Core
+- ASP.NET 10
 - **SQLite** (Database)
 
 ## Cara Menjalankan
 
-1.  Clone repository ini.
-2.  Setup konfigurasi:
+1.  Pastikan .NET SDK sudah terinstall
+2.  Clone repository ini.
+3.  Setup konfigurasi:
     - Copy file `.env.example` menjadi `.env` (atau atur di User Secrets).
     - Pastikan `Jwt__Key` diisi.
-3.  Jalankan migrasi database (File `.db` akan otomatis dibuat):
+4.  Jalankan migrasi database (File `.db` akan otomatis dibuat):
     ```bash
     dotnet ef database update
     ```
